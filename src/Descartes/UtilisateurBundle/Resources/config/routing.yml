@@ -1,0 +1,44 @@
+descartes_utilisateur_homepage:
+    pattern:  /utilisateur
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:index }
+
+descartes_utilisateur_inscription:
+    pattern:  /utilisateur/inscription
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:inscription }
+
+descartes_utilisateur_profil:
+    pattern:  /utilisateur/profil/{login}
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:profil }
+
+descartes_utilisateur_setting:
+    pattern:  /utilisateur/setting
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:setting }
+
+descartes_utilisateur_friends:
+    pattern:  /utilisateur/friends
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:friends }
+
+descartes_utilisateur_sendMessage:
+    pattern: /utilisateur/sdMessage
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:sendMessage }
+
+descartes_utilisateur_sendMessageTo:
+    pattern: /utilisateur/sdMessage/{login}
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:sendMessageTo }
+
+descartes_utilisateur_readMessage:
+    pattern: /utilisateur/rdMessage
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:readMessage }
+
+descartes_utilisateur_delMessage:
+    pattern: /utilisateur/delMessage/{id}
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:delMessage }
+    requirements:
+        id: \d+
+
+login:
+    pattern:  /login
+    defaults: { _controller: DescartesUtilisateurBundle:Utilisateur:login }
+
+login_check:
+    pattern: /login_check

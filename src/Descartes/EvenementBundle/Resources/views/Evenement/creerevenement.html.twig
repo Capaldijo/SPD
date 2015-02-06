@@ -1,0 +1,82 @@
+{% extends "DescartesEvenementBundle::EvenementLayout.html.twig" %}
+
+
+{% block contentBlock %}
+
+
+	
+		<div id="infoProfil">
+			Créer un évènement
+		</div>		
+		
+		<form id="profilTableMain" action="{{ path('descartes_evenement_creerevenement') }}" method="post" {{ form_enctype(form) }}>
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(form) }}
+			<br />
+			<table>
+
+				<tr>
+					<td><label><b>Image </b></label></td>
+					<td>{{ form_errors(form.image) }} {{ form_widget(form.image) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Titre </b></label></td>
+					<td>{{ form_errors(form.titre) }} {{ form_widget(form.titre) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Description </b></label></td>
+					<td>{{ form_errors(form.description) }} {{ form_widget(form.description) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Adresse </b></label></td>
+					<td>{{ form_errors(form.adresse) }} {{ form_widget(form.adresse) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Ville </b></label></td>
+					<td>{{ form_errors(form.ville) }} {{ form_widget(form.ville) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Tarif en € </b></label></td>
+					<td>{{ form_errors(form.tarif) }} {{ form_widget(form.tarif) }}</td>
+				</tr>
+				
+				<tr>
+					<td><label><b>Theme </b></label></td>
+					<td>{{ form_errors(form.idThemeev) }} {{ form_widget(form.idThemeev) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Date de realisation </b></label></td>
+					<td>{{ form_errors(form.dateRealisation) }} {{ form_widget(form.dateRealisation) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Nombre de participant </b></label></td>
+					<td>{{ form_errors(form.nombreParticipant) }} {{ form_widget(form.nombreParticipant) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Visibilite public </b></label></td>
+					<td>{{ form_errors(form.visibilite) }} {{ form_widget(form.visibilite) }}</td>
+				</tr>
+
+				{{ form_rest(form) }}
+			
+			</table>
+			<br />
+			<div id="buttonProfil">
+				<input id="submit" type="submit"/>
+			</div>
+			<br />
+			
+		</form>
+				
+	</div><!--.post excerpt-->
+
+{% endblock %}

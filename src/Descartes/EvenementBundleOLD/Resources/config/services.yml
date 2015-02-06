@@ -1,0 +1,7 @@
+parameters:
+#    descartes_evenement.example.class: Descartes\EvenementBundle\Example
+
+services:
+#    descartes_evenement.example:
+#        class: %descartes_evenement.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

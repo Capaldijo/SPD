@@ -1,0 +1,79 @@
+<ul class="tabs">
+	<li><a class="selected" href="#popular-posts">Sorties Populaires</a></li>
+	<li class="tab-recent-posts"><a href="#recent-posts">Sorties Récentes</a></li>
+</ul> <!--end .tabs-->
+	
+<div class="clear"></div>
+<div class="inside">
+
+	<div style="display: block;" id="popular-posts">
+		<ul>
+			{% for event in eventsPop %}
+			<li>
+				<div class="left">
+					<img src="{{ asset('upload/imageEvent/') }}{{ event.image }}" class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="65" width="105">
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<p class="entry-title">
+						<a title="Awesome Post With Everything With It" href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}">{{ event.titre }}</a>
+					</p>
+					{% if event.nb_commentaire != 0 %}
+						<div class="meta">
+							<span class="comm">{{ event.nb_commentaire }}</span> Commentaires
+						</div>
+					{% else %}
+						<div class="meta">
+							Pas de commentaires
+						</div>
+					{% endif %}
+				
+				</div> <!--end .info-->
+
+				<div class="clear"></div>
+			</li>
+			{% else %}
+				Aucun évènement n'a encore été créé pour le moment.
+			{% endfor %}
+
+		</ul>			
+	</div> <!--end #popular-posts-->
+	   
+	<div style="display: none;" id="recent-posts"> 
+		<ul>
+			{% for event in eventsRec %}
+			<li>
+				<div class="left">
+					<img src="{{ asset('upload/imageEvent/') }}{{ event.image }}" class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="65" width="105">
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<p class="entry-title">
+						<a title="Awesome Post With Everything With It" href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}">{{ event.titre }}</a>
+					</p>
+					
+					{% if event.nb_commentaire != 0 %}
+						<div class="meta">
+							<span class="comm">{{ event.nb_commentaire }}</span> Commentaires
+						</div>
+					{% else %}
+						<div class="meta">
+							Pas de commentaires
+						</div>
+					{% endif %}
+				
+				</div> <!--end .info-->
+
+				<div class="clear"></div>
+			</li>
+			{% else %}
+				Aucun évènement n'a encore été créé pour le moment.
+			{% endfor %}
+		</ul>	
+	</div> <!--end #recent-posts-->
+	
+	<div style="display: none;" class="clear"></div>
+	
+</div> <!--end .inside -->
+
+<div class="clear"></div>

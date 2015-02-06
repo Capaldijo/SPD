@@ -1,0 +1,62 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+
+	<h1 align="center">Mes Messages</h1>
+
+	{% if messagesList == null %}
+		Vous n'avez pour le moment aucun messages.
+	{% else %}
+
+		{% for message in messagesList %}
+			<div id="RdMessage">
+				<div id='delMessButton' >	
+							<a href="{{ path('descartes_utilisateur_delMessage', {'id': message.id_message}) }}"><img src="{{ asset('CancelButton.png') }}" id="cancelButton" title="Supprimer" /></a>
+				</div>
+				<table id="RdMessagetable" style="border: 0px">
+					<tr>
+						<td>
+							{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ message.id) %}
+								<img src="{{ asset('upload/imageProfil/image_android' ~ message.id) }}"  alt="ImageProfil" width="48" height="48" id="thumbImgProfil" />
+							{% else %}
+								<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  alt="ImageProfil" width="48" height="48" id="thumbImgProfil" />
+							{% endif %}
+						</td>
+						<td style="vertical-align: middle">
+							<h5>{{ message.lastname | capitalize }} {{ message.firstname | capitalize }}<h5>
+							
+
+						</td>
+					</tr>
+				</table>
+
+
+				<div id="ContMessage">
+					<b>Sujet: </b>
+					{{ message.sujet_message|capitalize }}
+				</div>
+				
+				<div id="ContMessage">
+					{{ message.contenu_message }}
+				</div>
+				<div id="DateMessage">
+					écrit à {{ message.date|date('H') }}h{{ message.date|date('m') }} le {{message.date|date('d/m')}}
+				</div>
+			</div>
+			<br /><br />
+		{% endfor %}
+			
+		<form action="{{ path('descartes_utilisateur_readMessage') }}" method="post" {{ form_enctype(formShowMessage) }}>
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(formShowMessage) }}
+
+			<div id="buttonProfil">
+				<input type="submit" class="btn btn-primary" value="Afficher plus de messages"/>
+			</div>
+			{{ form_rest(formShowMessage) }}
+			
+		</form>
+	{% endif %}
+
+{% endblock %}

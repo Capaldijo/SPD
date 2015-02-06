@@ -1,0 +1,55 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+
+	<h1>Mes Amis</h1>
+
+	{% if friendsList == null %}
+		Vous n'avez pour le moment aucun ami(e)s.
+	{% else %}
+
+		<div id="tab-2" class="widget widget-sidebar widget_tab">
+				<div id="tabber">
+					<div class="inside">
+						<div style="display: block;" id="popular-posts">
+							<ul>
+								{% for friend in friendsList %}
+									
+									<li>
+										<div class="left">
+											{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ friend.id) %}
+												<img src="{{ asset('upload/imageProfil/image_android'~friend.id) }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65" />
+											{% else %}
+												<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65"/>
+											{% endif %}
+											
+											<div class="clear"></div>
+										</div>
+										<div class="info">
+									 		<p class="entry-title"><br />
+									 			<a href="{{ path('descartes_utilisateur_profil', {'login': friend.username}) }}">
+													{{ friend.lastname | capitalize}} {{ friend.firstname | capitalize }}
+												</a>
+									 		</p>							
+								    	</div> <!--end .info-->
+
+										<div class="clear"></div>					
+									</li>
+									
+								{% endfor %}
+							</ul>
+						</div>				    
+					
+						<div style="display: none;" class="clear"></div>
+					
+					</div> <!--end .inside -->
+				
+				<div class="clear"></div>
+			
+			</div><!--end #tabber -->
+
+		</div>
+
+	{% endif %}
+
+{% endblock %}

@@ -1,0 +1,7 @@
+descartes_recherche_homepage:
+    pattern:  /search
+    defaults: { _controller: DescartesRechercheBundle:Recherche:index }
+
+descartes_recherche_resultSearch:
+    pattern: /resultSearch/{search}
+    defaults: { _controller: DescartesRechercheBundle:Recherche:search }

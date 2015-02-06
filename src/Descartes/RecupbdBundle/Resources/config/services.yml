@@ -1,0 +1,9 @@
+parameters:
+#    descartes_recupbd.example.class: Descartes\RecupbdBundle\Example
+
+services:
+#    descartes_recupbd.example:
+#        class: %descartes_recupbd.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    descartes_recupbd.Recupbd:
+        class: Descartes\RecupbdBundle\Recupbd\Recupbd

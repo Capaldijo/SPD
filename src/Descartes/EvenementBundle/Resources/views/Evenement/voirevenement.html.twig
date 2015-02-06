@@ -1,0 +1,152 @@
+{% extends "DescartesEvenementBundle::EvenementLayout.html.twig" %}
+
+
+{% block contentBlock %}
+
+
+	{% if event != null %}
+	<div id="page" class="single">
+	<div id="post-34" class="post-34 post type-post status-publish format-standard has-post-thumbnail hentry category-awesome category-news tag-qiameth tag-tupress tag-winooze g post has_thumb">
+		<div class="single_post">
+			<header>
+				<h1 class="title single-title">
+					{{ event.titre }}
+				<div id="settingEvent">
+					{% if id_user == event.id_createur %}
+							<a href="{{path('descartes_evenement_setting', {'id' : event.id_event} )}}" >
+								<input type="button" id="submit" value="Modifier" />
+							</a>
+					{% elseif event.nombre_participant != event.nb_participant_sortie %}
+						{% if isParticipant %}
+							<form action="{{path('descartes_evenement_cancelPart', {'id' : event.id_event} )}}" method="post" id="participe-form" class="participe-form">
+								<input name="submit" type="submit" id="submit" value="Annuler" />
+							</form>
+						{% else %}
+							<form action="{{path('descartes_evenement_participe', {'id' : event.id_event} )}}" method="post" id="participe-form" class="participe-form">
+								<input name="submit" type="submit" id="submit" value="Participer" />
+							</form>
+						{% endif %}
+					{% else %}
+						Nombre de participant max atteint.
+					{% endif %}
+				</div></h1>
+				<div class="post-info">
+					<div id="buttonProfil">
+		                <span class="theauthor">Auteur: 
+		                	<a rel="nofollow" href="{{ path('descartes_utilisateur_profil', {'login': event.username}) }}" title="" rel="author">
+		                		{{ event.lastname | capitalize }} {{ event.firstname | capitalize }}
+		                	</a>
+		                </span>
+		                <span class="thecategory"> Thème: 
+		                	<a href="{{ path('descartes_evenement_filtreEvent', {'filtre' : event.titre_theme }) }}" title="" rel="nofollow">
+		                		{{ event.titre_theme }}
+		                	</a>
+		                </span>
+		                <span class="theauthor">Nombre participants:
+		                 <a href="{{ path('descartes_evenement_participant', {'id' : event.id_event}) }}" title="" rel="nofollow">
+		                 	{{ event.nb_participant_sortie }}
+		                </a>
+		                </span>
+		                <span class="thecategory">Date réalisation: <b>{{ event.date_realisation|date('d/m/y') }}</b></span>
+		                <span class="theauthor">Ville:	<b>{{ event.ville | capitalize }}</b></span>
+		                <span class="thecategory">Adresse:	<b>{{ event.adresse | capitalize }}</b></span>
+		                <span class="thecategory">Note:	<b>{{ noteEvent.note_moy | number_format(1, '.', ',') }}/5</b></span>
+	            	</div>
+	            </div>
+			</header><!--.headline_area-->
+			<div class="post-single-content box mark-links">
+				{% if not hasNoter %}
+					<div id="ratingform">
+						<form action="{{path('descartes_evenement_addNote', {'id' : event.id_event} )}}" method="post" >
+									<SELECT name="note">
+										<OPTION>1
+										<OPTION>2
+										<OPTION>3
+										<OPTION>4
+										<OPTION>5
+									</SELECT>
+									<input name="submit" type="submit" id="submit" value="Noter" />
+						</form>
+					</div>
+				{% endif %}
+				<p><br />
+					{% if file_exists( web_path ~ 'upload/imageEvent/' ~ event.image) %}
+						<img id="ImgEvent" class="alignright size-medium wp-image-54" alt="q3" src="{{ asset('upload/imageEvent/') }}{{ event.image }}" width="350" height="200" />
+					{% else %}
+						<img id="ImgEvent" src="{{ asset('upload/imageEvent/defaultAvatar.jpg') }}" class="alignright size-medium wp-image-54" alt="q3" title="defaultAvatar" width="350" height="200" />
+					{% endif %}
+					{{ event.description }}
+				</p>
+			</div>
+		</div><!--.post-content box mark-links-->
+		</div>					
+	</div>
+						<!-- You can start editing here. -->
+	<div id="comments">
+		<div class="total-comments">{{event.nb_commentaire}} Commentaires</div>
+			<ol class="commentlist">
+				<div class="navigation">
+					<div class="alignleft"></div>
+					<div class="alignright"></div>
+				</div>
+				{% for comment in comments %}
+				<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4">
+					<div id="comment-4" style="position:relative;">
+						<div class="comment-author vcard">
+							{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ comment.id) %}
+								<img alt='' src='{{ asset('upload/imageProfil/image_android'~comment.id) }}' class='avatar avatar-80 photo' height='80' width='80' />
+							{% else %}
+								<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  alt="ImageProfil" width="200" height="300" id="imageProfil" />
+							{% endif %}
+							<span class="fn">{{ comment.firstname }} {{ comment.lastname }}</span> 
+							<time>
+								{{ comment.date_commentaire | date('d/m') }} à {{ comment.date_commentaire|date('H') }}h{{ comment.date_commentaire|date('m') }}
+							</time>
+						</div>
+						<div class="comment-meta"></div>
+						<div class="commentmetadata">
+							<p>{{ comment.contenue }}</p>
+						</div>
+					</div>
+				</li>
+				{% else %}
+					Soyez le premier à commenter la sortie !
+				{% endfor %}
+			</ol>
+		</div>
+
+		{% if app.user != null %}
+		<div id="commentsAdd">
+			<div id="respond" class="box m-t-6">
+				<div id="respond" class="comment-respond">
+					<h3 id="reply-title" class="comment-reply-title">
+						<h4><span>Laisser un Commentaire</span></h4> 
+					</h3>
+					<form action="{{path('descartes_evenement_comment', {'id' : event.id_event} )}}" method="post" id="commentform" class="comment-form">
+						<p class="comment-form-comment">
+							<textarea id="comment" name="comment" placeholder="Commentaire" value="" cols="45" rows="8" aria-required="true"></textarea>
+						</p>
+						<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="Poster Commentaire" />
+							<input type='hidden' name='comment_post_ID' value='34' id='comment_post_ID' />
+
+						</p>
+					</form>
+				</div><!-- #respond -->
+			</div>
+		</div>
+		{% endif %}
+	{% else %}
+		<div class="post excerpt  lino0 removebordertop">
+			<header>						
+				<h2 class="title">
+					L'événement n'existe pas
+				</h2>
+			</header><!--.header-->
+			<div class="post-content image-caption-format-1">
+				Cet événement n'existe pas.
+			</div>
+		</div><!--.post excerpt-->
+	{% endif %}
+
+{% endblock %}

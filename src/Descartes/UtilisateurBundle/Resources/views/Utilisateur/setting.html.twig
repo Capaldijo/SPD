@@ -1,0 +1,102 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+	
+		<h1 align="center">Configuration</h1>
+
+
+		<div id="infoProfil">
+			Mes Informations Personnelles
+		</div>
+
+		<form id="profilTableMain" action="{{ path('descartes_utilisateur_setting') }}" method="post" {{ form_enctype(formProfil) }}>
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(formProfil) }}
+
+			{# Idem pour un autre champ. #}
+			<table style="border: 0px"> <br />
+				<tr>
+					<td><label><b>Nom </b></label></td>
+					<td>{{ form_errors(formProfil.lastname) }} {{ form_widget(formProfil.lastname) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Prénom </b></label></td>
+					<td>{{ form_errors(formProfil.firstname) }} {{ form_widget(formProfil.firstname) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Mail </b></label></td>
+					<td>{{ form_errors(formProfil.email) }} {{ form_widget(formProfil.email) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Mot de passe </b></label></td>
+					<td>{{ form_errors(formProfil.password) }} {{ form_widget(formProfil.password) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Numéro de téléphone </b></label></td>
+					<td>{{ form_errors(formProfil.numTel) }} {{ form_widget(formProfil.numTel) }}</td>
+				</tr
+				
+				<tr>
+					<td><label><b>Votre sexe </b></label></td>
+					<td>{{ form_errors(formProfil.sexe) }} {{ form_widget(formProfil.sexe) }}</td>
+				</tr>
+
+				<tr>
+					<td><label><b>Date de naissance </b></label></td>
+					<td>{{ form_errors(formProfil.dateNaissance) }} {{ form_widget(formProfil.dateNaissance) }}</td>
+				</tr>
+
+				<tr>
+					<td id="labelCentre"><label><b>Centres d'interêts </b></label></td>
+					<td>
+						{{ form_errors(formProfil.centreInteret) }} {{ form_widget(formProfil.centreInteret) }} 
+						<br />Veuillez en choisir <u>obligatoirement</u> 6.
+					</td>
+				</tr>
+
+				<tr>
+					<td><label><b>UFR </b></label></td>
+					<td>{{ form_errors(formProfil.ufr) }} {{ form_widget(formProfil.ufr) }}</td>
+				</tr>
+
+				{# Génération des champs pas encore écrits.
+				   Le champ CSRF et tous les champs cachés (type « hidden »). #}
+				{{ form_rest(formProfil) }}
+
+			</table>
+			<br />
+			<div id="buttonProfil">
+				<input type="submit" id="submit" class="btn btn-primary" />
+			</div>
+			<br />
+		</form>
+
+		<br /> <br />
+
+		<div id="infoProfil">
+			Mon avatar
+		</div>
+		
+		<form id="profilTableMain" action="{{ path('descartes_utilisateur_setting') }}" method="post" {{ form_enctype(formImage) }}>
+
+			<table>
+				<tr>
+					<td><label><b>Image </b></label></td>
+					<td>{{ form_errors(formImage.file) }} {{ form_widget(formImage.file) }}</td>
+				</tr>
+			</table>
+			{{ form_rest(formImage) }}
+			
+			<br />
+			<div id="buttonProfil">
+				<input type="submit" id="submit" value="Modifier" class="btn btn-primary" />
+			</div>
+			<br />	
+		</form>
+
+{% endblock %}

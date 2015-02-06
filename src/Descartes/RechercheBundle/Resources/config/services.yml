@@ -1,0 +1,7 @@
+parameters:
+#    descartes_recherche.example.class: Descartes\RechercheBundle\Example
+
+services:
+#    descartes_recherche.example:
+#        class: %descartes_recherche.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

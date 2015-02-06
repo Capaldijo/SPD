@@ -1,0 +1,34 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+	
+		<div id="infoProfil">
+			Envoyer un message
+		</div>
+
+		<form id="formSdMessage" action="{{ path('descartes_utilisateur_sendMessage') }}" method="post" {{ form_enctype(formMessage) }}>
+
+			{# Les erreurs générales du formulaire. #}
+			{{ form_errors(formMessage) }}
+
+			{# Idem pour un autre champ. #}
+			
+			<br />
+			<div>{{ form_errors(formMessage.loginDest) }} {{ form_widget(formMessage.loginDest, {'value': 'Destinataire: '}) }}</div><br />
+
+			<div>{{ form_errors(formMessage.sujetMessage) }} {{ form_widget(formMessage.sujetMessage, {'value': 'Sujet: '}) }}</div><br />
+
+			<div>{{ form_errors(formMessage.contenuMessage) }} {{ form_widget(formMessage.contenuMessage, {'value': 'Message: '}) }}</div><br />
+
+			{# Génération des champs pas encore écrits.
+			   Le champ CSRF et tous les champs cachés (type « hidden »). #}
+			{{ form_rest(formMessage) }}
+
+			{#</table>#}
+			<div id="buttonSdMess" >
+				<input type="submit" id="submit" class="btn btn-primary" value="Envoyer"/>
+			</div>
+			<br />
+		</form>
+
+{% endblock %}

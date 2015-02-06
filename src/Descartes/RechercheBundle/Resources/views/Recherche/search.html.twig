@@ -1,0 +1,127 @@
+{% extends "DescartesRechercheBundle::RechercheLayout.html.twig" %}
+
+{% block descartes_rechercheBlock %}
+
+	<div id="tab-2" class="widget widget-sidebar widget_tab">
+		<div id="tabber">
+			<div class="inside">
+				<div style="display: block;" id="popular-posts">
+					<ul>
+	{% if utilisateurs != null and events != null %}
+		<h4>Sorties</h4>
+		{% for event in events %}
+			<li>
+				<div class="left">
+					<img src="{{ asset('upload/imageEvent/') }}{{ event.image }}" class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="65" width="105">
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<p class="entry-title">
+						<a title="" href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}">{{ event.titre }}</a>
+					</p>
+					
+					{% if event.nb_commentaire != 0 %}
+						<div class="meta">
+							<span class="comm">{{ event.nb_commentaire }}</span> Commentaires
+						</div>
+					{% else %}
+						<div class="meta">
+							Pas de commentaires
+						</div>
+					{% endif %}
+				
+				</div> <!--end .info-->
+
+				<div class="clear"></div>
+			</li>
+		{% endfor %}
+		<br />
+		<hr style="text-align:center; margin: 0 auto; height:1px; border:none; color:#1C8B78; background-color:#1C8B78;">
+		<br />
+		<h4>Utilisateurs</h4>
+		{% for user in utilisateurs %}
+			<li>
+				<div class="left">
+					{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ user.id) %}
+						<img src="{{ asset('upload/imageProfil/image_android'~user.id) }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65" />
+					{% else %}
+						<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65"/>
+					{% endif %}
+					
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+			 		<p class="entry-title"><br />
+			 			<a href="{{ path('descartes_utilisateur_profil', {'login': user.username}) }}">
+							{{ user.lastname | capitalize}} {{ user.firstname | capitalize }}
+						</a>
+			 		</p>							
+		    	</div> <!--end .info-->
+
+				<div class="clear"></div>					
+			</li>
+		{% endfor %}
+	{% elseif events != null %}
+		<h4>Sorties</h4>
+		{% for event in events %}
+			<li>
+				<div class="left">
+					<img src="{{ asset('upload/imageEvent/') }}{{ event.image }}" class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="65" width="105">
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+					<p class="entry-title">
+						<a title="" href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}">{{ event.titre }}</a>
+					</p>
+					
+					{% if event.nb_commentaire != 0 %}
+						<div class="meta">
+							<span class="comm">{{ event.nb_commentaire }}</span> Commentaires
+						</div>
+					{% else %}
+						<div class="meta">
+							Pas de commentaires
+						</div>
+					{% endif %}
+				
+				</div> <!--end .info-->
+
+				<div class="clear"></div>
+			</li>
+		{% endfor %}
+	{% elseif utilisateurs != null %}
+		<h4>Utilisateurs</h4>
+		{% for user in utilisateurs %}
+			<li>
+				<div class="left">
+					{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ user.id) %}
+						<img src="{{ asset('upload/imageProfil/image_android'~user.id) }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65" />
+					{% else %}
+						<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65"/>
+					{% endif %}
+					
+					<div class="clear"></div>
+				</div>
+				<div class="info">
+			 		<p class="entry-title"><br />
+			 			<a href="{{ path('descartes_utilisateur_profil', {'login': user.username}) }}">
+							{{ user.lastname | capitalize}} {{ user.firstname | capitalize }}
+						</a>
+			 		</p>							
+		    	</div> <!--end .info-->
+
+				<div class="clear"></div>					
+			</li>
+		{% endfor %}
+	{% else %}
+		Aucun résultat ne correspond à votre recherche.
+	{% endif %}
+						</ul>
+					</div> <!--end #popular-posts-->
+				<div style="display: none;" class="clear"></div>		
+				</div> <!--end .inside -->			
+			<div class="clear"></div>		
+		</div><!--end #tabber -->
+	</div>
+
+{% endblock %}

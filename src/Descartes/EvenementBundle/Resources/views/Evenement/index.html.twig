@@ -1,0 +1,57 @@
+{% extends "DescartesEvenementBundle::EvenementLayout.html.twig" %}
+
+
+{% block contentBlock %}
+
+{% for event in events %}
+	{% if event.visibilite == TRUE %}
+		<div class="post excerpt  lino0 removebordertop">
+			<header>						
+				<h2 class="title">
+					<a href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}" title="{{ event.titre }}" rel="bookmark">{{ event.titre }}</a>
+				</h2>
+			</header><!--.header-->
+			<div class="featured-thumbnail">
+				{% if file_exists( web_path ~ 'upload/imageEvent/' ~ event.image) %}
+					<img src="{{ asset('upload/imageEvent/') }}{{ event.image }}" class="attachment-featured wp-post-image" alt="{{ event.image }}" title="{{ event.image }}" height="200" width="450">
+				{% else %}
+					<img src="{{ asset('upload/imageEvent/defaultAvatar.jpg') }}" class="attachment-featured wp-post-image" alt="defaultAvatar" title="defaultAvatar" width="200" height="200" />
+				{% endif %}
+			</div>	
+			<div class="post-content image-caption-format-1">
+				{{ event.description | slice(0, 400) }} [...]
+			</div>
+		</div><!--.post excerpt-->
+
+		<div class="post-info">
+			<span class="thetime">{{ event.date_realisation|date('d/m/y') }}</span>
+			<span class="theauthor">Auteur <a rel="nofollow" href="{{ path('descartes_utilisateur_profil', {'login': event.username}) }}" title="">{{ event.lastname | capitalize }} {{ event.firstname | capitalize }}</a></span>
+			<span class="thecategory">Thème<a href="{{ path('descartes_evenement_filtreEvent', {'filtre' : event.titre_theme }) }}" title="" rel="nofollow">{{ event.titre_theme }}</a></span>
+			<span class="thecomment"><span class="comments">Commentaires</span> <span class="comm">{{ event.nb_commentaire }}</span></span>
+			<span class="readMore"><a href="{{ path('descartes_evenement_voir',{'id' : event.id_event}) }}" title="" rel="bookmark">lire plus</a></span>
+		</div>
+	{% endif %}
+{% else %}
+	<p>Pas d'évènements trouvés.</p>
+{% endfor %}
+
+
+<!-- Start Pagination
+<div class="pagination">
+	<ul>
+		<li class="current">
+			<span class="currenttext">1</span>
+		</li>
+		<li>
+			<a rel="nofollow" href="" class="inactive">2</a>
+		</li>
+		<li>
+			<a rel="nofollow" href="" class="inactive">3</a>
+		</li>
+	</ul>
+</div>           
+End Pagination -->
+
+
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+
+	<h1 align="center">{{ user.lastname | capitalize}}  {{ user.firstname | capitalize }}</h1>
+
+
+	{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ user.id) %}
+		<img src="{{ asset('upload/imageProfil/image_android'~user.id) }}"  alt="ImageProfil" width="200" height="300" id="imageProfil" />
+	{% else %}
+		<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  alt="ImageProfil" width="200" height="300" id="imageProfil" />
+	{% endif %}
+	
+
+	<br/ >
+
+	<div id="infoProfil">
+		Informations
+	</div>
+
+	<table id="profilTableMain">
+
+		<tr>
+			<td><label><b>Mail </b></label></td>
+			<td>{{ user.email }}</td>
+		</tr>
+
+		<tr>
+			<td><label><b>Login </b></label></td>
+			<td>{{ user.username }}</td>
+		</tr>
+		
+		<tr>
+			<td><label><b>Votre sexe </b></label></td>
+			<td>
+				{% if user.sexe %}
+					<label>Homme</label>
+				{% else %}
+					<label>Femme</label>
+				{% endif %}
+			</td>
+		</tr>
+
+		<tr>
+			<td><label><b>Date de naissance </b></label></td>
+			<td>{{ user.dateNaissance|date('d/m/Y') }}</td>
+		</tr>
+
+		<tr>
+			<td><label><b>Votre UFR </b></label></td>
+			<td>{{ user.ufr|capitalize }}</td>
+		</tr>
+
+		{% if user.numTel != null %}
+			<tr>
+				<td><label><b>Numéro Téléphone </b></label></td>
+				<td>{{ user.numTel }}</td>
+			</tr>
+		{% endif %}
+
+		</table><br />
+
+		<div id="interetProfil">
+			Centres D'intérêts
+		</div>
+
+		<table id="profilTableSecond">
+
+		<tr>
+			<td>
+				{% if interestList == null %}
+					{% if app.user.username != user.username %}
+						{{user.firstname | capitalize }} n'a aucun centre d'interêt pour le moment.
+					{% else %}
+						Vous n'avez aucun centre d'interêt pour le moment.
+					{% endif %}
+				{% else %}
+					{% for interest in interestList%}
+						{% if loop.last %}
+							{{interest.titre_interet}}.
+						{% elseif loop.index == 3 %}
+							{{interest.titre_interet}},<br />
+						{% else %}
+							{{interest.titre_interet}},
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</td>
+		</tr>
+
+		</table> <br />
+
+		{% if app.user != null %}
+
+			<div id="buttonProfil">
+
+				{% if app.user.username == user.username %}
+					<a href="{{ path('descartes_utilisateur_setting') }}"><input type="button" id="submit" value="Modifier votre Profil"/></a>
+				{% elseif ami == null%}
+
+					<form action="{{ path('descartes_utilisateur_profil', {'login': user.username}) }}" method="post" {{ form_enctype(formAdd) }}>
+
+						{# Les erreurs générales du formulaire. #}
+						{{ form_errors(formAdd) }}
+
+						{# Génération des champs pas encore écrits.
+							Le champ CSRF et tous les champs cachés (type « hidden »). #}
+						{{ form_rest(formAdd) }}
+
+						<a href="{{ path('descartes_utilisateur_sendMessageTo', {'login': user.username}) }}">
+							<input type="button" id="submit" class="btn btn-primary" value="Envoyer un message"/>
+						</a>
+
+						<input type="submit" id="submit" class="btn btn-primary" value="Ajouter"/>
+
+					</form>
+
+				{% elseif ami != null %}
+
+					<form action="{{ path('descartes_utilisateur_profil', {'login': user.username}) }}" method="post" {{ form_enctype(formAdd) }}>
+
+						{# Les erreurs générales du formulaire. #}
+						{{ form_errors(formAdd) }}
+
+						{# Génération des champs pas encore écrits.
+							Le champ CSRF et tous les champs cachés (type « hidden »). #}
+						{{ form_rest(formAdd) }}
+
+						<a href="{{ path('descartes_utilisateur_sendMessageTo', {'login': user.username}) }}">
+							<input type="button" id="submit" class="btn btn-primary" value="Envoyer un message"/>
+						</a>
+
+						<input type="submit" id="submit" class="btn btn-primary" value="Supprimer"/>
+
+					</form>
+
+				{% endif %}
+			
+			</div>
+		{% endif %}
+
+{% endblock %}

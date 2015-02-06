@@ -1,0 +1,55 @@
+{% extends "DescartesEvenementBundle::EvenementLayout.html.twig" %}
+
+
+{% block contentBlock %}
+
+
+
+{% for event in events %}
+	<div class="post excerpt  lino0 removebordertop">
+		<header>						
+			<h2 class="title">
+				<a href="" title="Awesome Post With Everything With It" rel="bookmark">{{ event.titre }}</a>
+			</h2>
+		</header><!--.header-->
+		<a href="" title="Awesome Post With Everything With It" rel="nofollow" id="featured-thumbnail">
+			<div class="featured-thumbnail">
+				<img src="data/wallpaper-2839632-450x200.jpg" class="attachment-featured wp-post-image" alt="wallpaper-2839632" title="" height="200" width="450">
+			</div>	
+		</a>
+		<div class="post-content image-caption-format-1">
+			{{ event.description }}
+		</div>
+	</div><!--.post excerpt-->
+
+	<div class="post-info">
+		<span class="thetime">21 Jan 14</span>
+		<span class="theauthor">Auteur <a rel="nofollow" href="" title="Posts by MyThemeShop">Thomas L</a></span>
+		<span class="thecategory">Thème<a href="" title="View all posts in Awesome" rel="nofollow">Apéritif</a> <a href="" title="View all posts in News" rel="nofollow"></a></span>
+		<span class="thecomment"><span class="comments">Commentaires</span> <span class="comm">5</span></span>
+		<span class="readMore"><a href="" title="Awesome Post With Everything With It" rel="bookmark">lire plus</a></span>
+	</div>
+{% else %}
+	<p>Pas d'evenement trouvé.</p>
+{% endfor %}
+
+
+<!--Start Pagination-->
+<div class="pagination">
+	<ul>
+		<li class="current">
+			<span class="currenttext">1</span>
+		</li>
+		<li>
+			<a rel="nofollow" href="" class="inactive">2</a>
+		</li>
+		<li>
+			<a rel="nofollow" href="" class="inactive">3</a>
+		</li>
+	</ul>
+</div>           
+<!--End Pagination-->
+
+
+
+{% endblock %}

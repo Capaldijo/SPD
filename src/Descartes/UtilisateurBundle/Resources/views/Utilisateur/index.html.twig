@@ -1,0 +1,40 @@
+<ul id="menu-menu" class="menu sf-js-enabled">
+	<li id="menu-item-113" class="icon-wrench menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-113">
+		<a class="sf-with-ul" href="{{ path('descartes_utilisateur_readMessage') }}">Mes Message<span class="sf-sub-indicator"> »</span>
+			<span class="sf-sub-indicator"> »</span></a>
+		<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+			<li id="menu-item-107" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+				<a href="{{ path('descartes_utilisateur_sendMessage') }}"> Envoyer un message</a>
+			</li>
+			<li id="menu-item-107" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+				<a href="{{ path('descartes_utilisateur_readMessage') }}"> Lire mes messages </a>
+			</li>
+		</ul>
+	</li>
+	<li id="menu-item-110" class="icon-wrench menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-110">
+		<a class="sf-with-ul" href="{{ path('descartes_utilisateur_friends') }}">Mes contacts<span class="sf-sub-indicator"> »</span>
+			<span class="sf-sub-indicator"> »</span></a>
+		<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+			{% if friends == null %}
+				<li id="menu-item-106" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+					&nbsp;&nbsp;Aucun amis disponible&nbsp;&nbsp;
+				</li>
+			{% else %}
+				{% for friend in friends %}
+				<li id="menu-item-107" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+					<a href="{{ path('descartes_utilisateur_profil', {'login': friend.username}) }}">{{friend.lastname | capitalize}} {{friend.firstname | capitalize}}</a>
+				</li>
+				{% endfor %}
+				<li id="menu-item-106" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+					<a href="{{ path('descartes_utilisateur_friends') }}" >Voir mes contacts</a>
+				</li>
+			{% endif %}
+		</ul>
+	</li>
+	<li id="menu-item-114" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-114">
+		<a href="{{ path('descartes_utilisateur_profil', {'login': app.user.username}) }}">Profil</a>
+	</li>
+	<li id="menu-item-115" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-115">
+		<a href="{{ path('fos_user_security_logout') }}">Deconnexion</a>
+	</li>
+</ul>								<a href="#" id="pull">Menu</a>

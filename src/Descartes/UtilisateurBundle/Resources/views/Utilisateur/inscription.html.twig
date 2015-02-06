@@ -1,0 +1,69 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+
+
+	<div id="infoProfil">
+		Inscription
+	</div>
+
+	<form id="profilTableMain" action="{{ path('descartes_utilisateur_inscription') }}" method="post" {{ form_enctype(form) }}>
+		<br />
+		{# Les erreurs générales du formulaire. #}
+		{{ form_errors(form) }}
+		{# Idem pour un autre champ. #}
+		<table >
+		<tr>
+			<td><label>Nom: </label></td>
+			<td>{{ form_errors(form.lastname) }} {{ form_widget(form.lastname) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Prénom: </label></td>
+			<td>{{ form_errors(form.firstname) }} {{ form_widget(form.firstname) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Mail: </label></td>
+			<td>{{ form_errors(form.email) }} {{ form_widget(form.email) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Login: </label></td>
+			<td>{{ form_errors(form.username) }} {{ form_widget(form.username) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Mot de passe: </label></td>
+			<td>{{ form_errors(form.password) }} {{ form_widget(form.password) }}</td>
+		</tr>
+		
+		<tr>
+			<td><label>Votre sexe: </label></td>
+			<td>{{ form_errors(form.sexe) }} {{ form_widget(form.sexe) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Date de naissance: </label></td>
+			<td>{{ form_errors(form.dateNaissance) }} {{ form_widget(form.dateNaissance) }}</td>
+		</tr>
+
+		<tr>
+			<td><label>Votre UFR: </label></td>
+			<td>{{ form_errors(form.ufr) }} {{ form_widget(form.ufr) }}</td>
+		</tr>
+
+		{# Génération des champs pas encore écrits.
+		   Dans cet exemple, ce serait « date », « auteur » et « publication »,
+		   mais aussi le champ CSRF (géré automatiquement par Symfony !)
+		   et tous les champs cachés (type « hidden »). #}
+		{{ form_rest(form) }}
+		</table>
+		<br />
+		<div id="buttonProfil">
+			<input id="submit" type="submit" class="btn btn-primary" />
+		</div>
+		<br />
+	</form>
+
+{% endblock %}

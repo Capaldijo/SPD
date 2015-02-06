@@ -1,0 +1,16 @@
+{% form_theme form _self %}
+
+
+
+
+<form action="{{ path('descartes_recherche_homepage') }}" method="POST" id="searchform" class="search-form" _lpchecked="1" {{ form_enctype(form) }}>
+	<fieldset>
+		{% block text_widget %}
+		    <div class="text_widget">
+		        <input type="text" class="s" value="Rechercher sur le site" onblur="if (this.value == '') {this.value = 'Rechercher sur le site';}" onfocus="if (this.value == 'Rechercher sur le site') {this.value = '';}" name="form[search]" id="form.search"/>
+		    </div>
+		{% endblock %}
+		<input id="search-image" class="sbutton" value="" type="submit">
+	</fieldset>
+	
+</form>

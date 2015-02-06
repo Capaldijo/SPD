@@ -1,0 +1,13 @@
+descartes_evenement_homepagebis:
+    pattern:  /evenement
+    defaults: { _controller: DescartesEvenementBundle:Evenement:index }
+descartes_evenement_homepage:
+    pattern:  /evenement/
+    defaults: { _controller: DescartesEvenementBundle:Evenement:index }
+descartes_evenement_creerevenementbis:
+    pattern:  /creerevenement
+    defaults: { _controller: DescartesEvenementBundle:Evenement:creerevenement }
+descartes_evenement_creerevenement:
+    pattern:  /creerevenement/
+    defaults: { _controller: DescartesEvenementBundle:Evenement:creerevenement }
+

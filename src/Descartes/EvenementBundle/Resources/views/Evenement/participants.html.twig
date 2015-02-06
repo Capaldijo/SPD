@@ -1,0 +1,57 @@
+{% extends "DescartesUtilisateurBundle::UserLayout.html.twig" %}
+
+{% block descartes_utilisateurblock %}
+
+	{% if participants == null %}
+		Vous n'avez pour le moment aucun participant.
+	{% else %}
+		<h4>Liste des participants</h4>
+		<div id="tab-2" class="widget widget-sidebar widget_tab">
+				<div id="tabber">
+					<div class="inside">
+						<div style="display: block;" id="popular-posts">
+							<br \>&nbsp;&nbsp;&nbsp;&nbsp;
+							<a href="{{ path('descartes_evenement_voir',{'id' : id_event}) }}">
+								<input type="button" value="Retour à la sortie" >
+							</a>
+							<ul>
+								{% for particip in participants %}
+									
+									<li>
+										<div class="left">
+											{% if file_exists( web_path ~ 'upload/imageProfil/image_android' ~ particip.id) %}
+												<img src="{{ asset('upload/imageProfil/image_android'~particip.id) }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65" />
+											{% else %}
+												<img src="{{ asset('upload/imageProfil/defaultAvatar.png') }}"  class="attachment-widgetthumb wp-post-image" alt="wallpaper-2839632" title="" height="auto" width="65"/>
+											{% endif %}
+											
+											<div class="clear"></div>
+										</div>
+										<div class="info">
+									 		<p class="entry-title"><br />
+									 			<a href="{{ path('descartes_utilisateur_profil', {'login': particip.username}) }}">
+													{{ particip.lastname | capitalize}} {{ particip.firstname | capitalize }}
+												</a>
+									 		</p>							
+								    	</div> <!--end .info-->
+
+										<div class="clear"></div>					
+									</li>
+									
+								{% endfor %}
+							</ul>
+						</div>				    
+					
+						<div style="display: none;" class="clear"></div>
+					
+					</div> <!--end .inside -->
+				
+				<div class="clear"></div>
+			
+			</div><!--end #tabber -->
+
+		</div>
+
+	{% endif %}
+
+{% endblock %}

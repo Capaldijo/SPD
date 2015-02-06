@@ -1,0 +1,61 @@
+descartes_evenement_homepage:
+    pattern:  /evenement
+    defaults: { _controller: DescartesEvenementBundle:Evenement:index }
+
+descartes_evenement_creerevenement:
+    pattern:  /creerevenement
+    defaults: { _controller: DescartesEvenementBundle:Evenement:creerevenement }
+
+descartes_evenement_voir:
+    pattern:  /evenement/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:voirevenement }
+    requirements:
+        id: \d+
+
+descartes_evenement_setting:
+    pattern: /evenement/setting/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:setting }
+    requirements:
+        id: \d+
+
+descartes_evenement_calendrier:
+    pattern:  /calendrier
+    defaults: { _controller: DescartesEvenementBundle:Evenement:calendrier }
+
+descartes_evenement_filtreEvent:
+    pattern: /evenement/filtrerpar/{filtre}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:filtrerpar }
+
+descartes_evenement_myEvents:
+    pattern: /evenement/myEvents/
+    defaults: { _controller: DescartesEvenementBundle:Evenement:myEvents }
+
+descartes_evenement_comment:
+    pattern: /evenement/comment/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:postComment }
+    requirements:
+        id: \d+
+
+descartes_evenement_participe:
+    pattern: /evenement/participe/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:participe }
+    requirements:
+        id: \d+
+
+descartes_evenement_participant:
+    pattern: /evenement/participant/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:listeParticipant }
+    requirements:
+        id: \d+
+
+descartes_evenement_cancelPart:
+    pattern: /evenement/cancelparticipation/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:cancelPart }
+    requirements:
+        id: \d+
+
+descartes_evenement_addNote:
+    pattern: /evenement/addNote/{id}
+    defaults: { _controller: DescartesEvenementBundle:Evenement:addNote }
+    requirements:
+        id: \d+

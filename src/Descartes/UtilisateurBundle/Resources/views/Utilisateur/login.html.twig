@@ -1,0 +1,56 @@
+{% if error %}
+    <div class="alert alert-error">{{ error.message }}</div>
+  {% endif %}
+
+<form action="{{ path('fos_user_security_check') }}" method="post">
+	<ul id="menu-menu" class="menu sf-js-enabled">
+		<li id="menu-item-110" class="icon-wrench menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-110">
+			<a class="sf-with-ul" href="{{ path('descartes_utilisateur_inscription') }}">
+				S'inscrire<span class="sf-sub-indicator"> »</span><span class="sf-sub-indicator"> »</span>
+			</a>
+			<ul style="display: none; visibility: hidden;" class="sub-menu sf-js-enabled">
+				<li id="menu-item-107" class="icon-move menu-item menu-item-type-post_type menu-item-object-page menu-item-107">
+					<a href="{{ path('descartes_utilisateur_inscription') }}">Via le site</a>
+				</li>
+				<li id="menu-item-106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-106">
+					{{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+
+					<script>
+					    function goLogIn()
+					    {
+					        window.location.href = "{{ path('_security_check') }}";
+					    }
+					    function onFbInit() 
+					    {
+					        if (typeof(FB) != 'undefined' && FB != null ) 
+					        {              
+					            FB.Event.subscribe('auth.statusChange', function(response) 
+					            {
+					                if (response.session || response.authResponse) 
+					                    setTimeout(goLogIn, 500);
+					                else 
+					                    window.location.href = "{{ path('fos_user_security_logout') }}";
+					            });
+					        }
+					    }
+					</script>
+
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					{{ facebook_login_button({'autologoutlink': true, 'label': "Facebook", 'size': 'large'}) }}
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</li>
+			</ul>
+		</li>
+		<li id="menu-item-113" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-113">
+			<label id="labelLog" for="username">&nbsp;&nbsp;Login:</label>
+    		<input type="text" id="username" name="_username" value="{{ last_username }}" />
+		</li>
+		<li id="menu-item-114" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-114">
+			<label id="labelLog" for="password">&nbsp;&nbsp;Mot de passe:</label>
+    		<input type="password" id="password" name="_password" />
+		</li>
+		<li id="menu-item-115" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-115">
+			<input type="submit" value="Connexion" />
+		</li>
+	</ul>								<a href="#" id="pull">Menu</a>
+</form>
