@@ -1,0 +1,59 @@
+security:
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        Descartes\UtilisateurBundle\Entity\Utilisateur: plaintext
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [main, my_fos_facebook_provider]
+        #in_memory:
+        #    memory:
+        #        users:
+        #            user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+        #            admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        main:
+            entity: { class: Descartes\UtilisateurBundle\Entity\Utilisateur, property: username }
+            #id: fos_user.user_provider.username_email
+        my_fos_facebook_provider:
+            id: my.facebook.user
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern:   ^/
+            anonymous: true
+            form_login:
+                provider:  main
+                login_path: login
+                check_path: login_check
+                default_target_path: /evenement # url de redirection par defaut en cas de succès d'authentification
+                failure_path: /evenement # url de redirection en cas d'echec d'authentification
+
+            fos_facebook:
+                app_url: "https://apps.facebook.com/1468313823386292"
+                server_url: "http://localhost/Symfony/"
+                login_path: _security_login
+                check_path: _security_check
+                default_target_path: /evenement
+                provider: my_fos_facebook_provider
+
+            logout:
+                path:   fos_user_security_logout
+                target: /evenement
+            remember_me:
+                key:    %secret%
+
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    
